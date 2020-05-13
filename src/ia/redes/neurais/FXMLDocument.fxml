@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -24,63 +25,89 @@
                   <Font name="Eras Demi ITC" size="24.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="638.0" layoutY="22.0" prefHeight="17.0" prefWidth="161.0" text="Tulio Olivieri - 101629230">
+            <Label alignment="CENTER_RIGHT" layoutX="638.0" layoutY="14.0" prefHeight="17.0" prefWidth="161.0" text="Tulio Olivieri - 101629230">
                <font>
                   <Font name="Eras Demi ITC" size="12.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="638.0" layoutY="40.0" prefHeight="17.0" prefWidth="161.0" text="Felipe Simões - 101628633">
+            <Label alignment="CENTER_RIGHT" layoutX="638.0" layoutY="32.0" prefHeight="17.0" prefWidth="161.0" text="Felipe Simões - 101628633">
                <font>
                   <Font name="Eras Demi ITC" size="12.0" />
                </font>
             </Label>
-            <Pane layoutX="-1.0" layoutY="86.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" style="-fx-border-style: solid; -fx-background-color: #EEEEEE;">
-               <children>
-                  <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="138.0" prefWidth="253.0" style="-fx-border-style: dotted;">
-                     <children>
-                        <Label layoutX="10.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Configurações número de neurônios " />
-                        <JFXTextField focusColor="#00ff33" layoutX="148.0" layoutY="16.0" prefHeight="25.0" prefWidth="92.0" />
-                        <JFXTextField focusColor="#00ff33" layoutX="149.0" layoutY="52.0" prefHeight="25.0" prefWidth="92.0" />
-                        <JFXTextField focusColor="#00ff33" layoutX="149.0" layoutY="88.0" prefHeight="25.0" prefWidth="92.0" />
-                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="23.0" layoutY="25.0" prefHeight="17.0" prefWidth="115.0" text="Camada de Entrada:" textAlignment="RIGHT" />
-                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="24.0" layoutY="61.0" prefHeight="17.0" prefWidth="115.0" text="Camada de Saida:" textAlignment="RIGHT" />
-                        <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="24.0" layoutY="97.0" prefHeight="17.0" prefWidth="115.0" text="Camada Oculta:" textAlignment="RIGHT" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="278.0" layoutY="14.0" prefHeight="57.0" prefWidth="177.0" style="-fx-border-style: dotted;">
-                     <children>
-                        <Label layoutX="11.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Valor do erro " />
-                        <JFXTextField focusColor="#00ff33" layoutX="14.0" layoutY="16.0" prefHeight="25.0" prefWidth="92.0" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="586.0" layoutY="14.0" prefHeight="138.0" prefWidth="200.0" style="-fx-border-style: dotted;">
-                     <children>
-                        <Label layoutX="10.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Função de Transferência " />
-                        <RadioButton layoutX="14.0" layoutY="36.0" mnemonicParsing="false" text="Linear">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="transferFunction" />
-                           </toggleGroup>
-                        </RadioButton>
-                        <RadioButton layoutX="14.0" layoutY="61.0" mnemonicParsing="false" text="Logística" toggleGroup="$transferFunction" />
-                        <RadioButton layoutX="14.0" layoutY="86.0" mnemonicParsing="false" text="Hiperbólica" toggleGroup="$transferFunction" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="468.0" layoutY="14.0" prefHeight="138.0" prefWidth="102.0" style="-fx-border-style: dotted;">
-                     <children>
-                        <JFXTextField focusColor="#00ff33" labelFloat="true" layoutX="14.0" layoutY="57.0" prefHeight="25.0" prefWidth="74.0" promptText="N:" />
-                     </children>
-                  </AnchorPane>
-                  <AnchorPane layoutX="278.0" layoutY="94.0" prefHeight="57.0" prefWidth="177.0" style="-fx-border-style: dotted;">
-                     <children>
-                        <Label layoutX="11.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Número de Iterações " />
-                        <JFXTextField focusColor="#00ff33" layoutX="14.0" layoutY="16.0" prefHeight="25.0" prefWidth="92.0" />
-                     </children>
-                  </AnchorPane>
-                  <JFXButton fx:id="btAbrirArquivo" layoutX="14.0" layoutY="167.0" onAction="#clkAbrirArquivo" prefHeight="25.0" prefWidth="115.0" style="-fx-border-color: red;" text="Carregar Arquivo" />
-                  <JFXTextField fx:id="tfArquivo" editable="false" labelFloat="true" layoutX="143.0" layoutY="168.0" prefHeight="25.0" prefWidth="643.0" promptText="Caminho do Arquivo" unFocusColor="RED" />
-               </children>
-            </Pane>
+            <Label alignment="CENTER_RIGHT" layoutX="622.0" layoutY="48.0" prefHeight="17.0" prefWidth="177.0" text="João Vitor Sabino - 101527802">
+               <font>
+                  <Font name="Eras Demi ITC" size="12.0" />
+               </font>
+            </Label>
+            <Label layoutX="-1.0" layoutY="34.0" prefHeight="40.0" prefWidth="161.0" text="2º Bimestre">
+               <font>
+                  <Font name="Eras Demi ITC" size="16.0" />
+               </font>
+            </Label>
+            <Label layoutX="-1.0" layoutY="4.0" prefHeight="40.0" prefWidth="161.0" text="2019">
+               <font>
+                  <Font name="Eras Demi ITC" size="16.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
    </top>
+   <center>
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="800.0" style="-fx-border-style: solid; -fx-background-color: #EEEEEE;" BorderPane.alignment="CENTER">
+         <children>
+            <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="138.0" prefWidth="253.0" style="-fx-border-style: dotted;">
+               <children>
+                  <Label layoutX="10.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Configurações número de neurônios " />
+                  <JFXTextField focusColor="#00ff33" layoutX="148.0" layoutY="16.0" prefHeight="25.0" prefWidth="92.0" />
+                  <JFXTextField focusColor="#00ff33" layoutX="149.0" layoutY="52.0" prefHeight="25.0" prefWidth="92.0" />
+                  <JFXTextField focusColor="#00ff33" layoutX="149.0" layoutY="88.0" prefHeight="25.0" prefWidth="92.0" />
+                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="23.0" layoutY="25.0" prefHeight="17.0" prefWidth="115.0" text="Camada de Entrada:" textAlignment="RIGHT" />
+                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="24.0" layoutY="61.0" prefHeight="17.0" prefWidth="115.0" text="Camada de Saida:" textAlignment="RIGHT" />
+                  <Label alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="24.0" layoutY="97.0" prefHeight="17.0" prefWidth="115.0" text="Camada Oculta:" textAlignment="RIGHT" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="278.0" layoutY="14.0" prefHeight="57.0" prefWidth="177.0" style="-fx-border-style: dotted;">
+               <children>
+                  <Label layoutX="11.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Valor do erro " />
+                  <JFXTextField focusColor="#00ff33" layoutX="14.0" layoutY="16.0" prefHeight="25.0" prefWidth="92.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="586.0" layoutY="14.0" prefHeight="138.0" prefWidth="200.0" style="-fx-border-style: dotted;">
+               <children>
+                  <Label layoutX="10.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Função de Transferência " />
+                  <RadioButton layoutX="14.0" layoutY="36.0" mnemonicParsing="false" text="Linear">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="transferFunction" />
+                     </toggleGroup>
+                  </RadioButton>
+                  <RadioButton layoutX="14.0" layoutY="61.0" mnemonicParsing="false" text="Logística" toggleGroup="$transferFunction" />
+                  <RadioButton layoutX="14.0" layoutY="86.0" mnemonicParsing="false" text="Hiperbólica" toggleGroup="$transferFunction" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="468.0" layoutY="14.0" prefHeight="138.0" prefWidth="102.0" style="-fx-border-style: dotted;">
+               <children>
+                  <JFXTextField focusColor="#00ff33" labelFloat="true" layoutX="14.0" layoutY="57.0" prefHeight="25.0" prefWidth="74.0" promptText="N:" />
+               </children>
+            </AnchorPane>
+            <AnchorPane layoutX="278.0" layoutY="94.0" prefHeight="57.0" prefWidth="177.0" style="-fx-border-style: dotted;">
+               <children>
+                  <Label layoutX="11.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Número de Iterações " />
+                  <JFXTextField focusColor="#00ff33" layoutX="14.0" layoutY="16.0" prefHeight="25.0" prefWidth="92.0" />
+               </children>
+            </AnchorPane>
+            <JFXButton fx:id="btAbrirArquivo" layoutX="14.0" layoutY="167.0" onAction="#clkAbrirArquivo" prefHeight="25.0" prefWidth="115.0" style="-fx-border-color: red;" text="Carregar Arquivo" />
+            <JFXTextField fx:id="tfArquivo" editable="false" labelFloat="true" layoutX="143.0" layoutY="168.0" prefHeight="25.0" prefWidth="643.0" promptText="Caminho do Arquivo" unFocusColor="RED" />
+            <TableView fx:id="tbNeuronios" layoutX="1.0" layoutY="206.0" prefHeight="349.0" prefWidth="798.0">
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy></TableView>
+            <JFXButton fx:id="btAvancar" layoutX="675.0" layoutY="559.0" onAction="#clkAvancar" prefHeight="25.0" prefWidth="115.0" style="-fx-border-color: #2f8d50; -fx-background-color: #ccffcc;" text="Avançar" textFill="#2f8d50">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </Pane>
+   </center>
 </BorderPane>
