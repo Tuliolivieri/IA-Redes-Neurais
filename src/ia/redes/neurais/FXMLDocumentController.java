@@ -16,6 +16,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,12 +24,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Callback;
 
 /** 
  *
@@ -48,11 +51,11 @@ public class FXMLDocumentController implements Initializable
     private BufferedReader br;
     private int num_neuronios;
     private String[] neuronios;
-    private ObservableList<String[]> dados;
-    //private ArrayList<TableColumn> colunas;
+    private ObservableList<ObservableList> dados;
+    private TableColumn[] colTabela;
     
     @FXML
-    private TableView<String[]> tbNeuronios;
+    private TableView<ObservableList> tbNeuronios;
     @FXML
     private JFXButton btAvancar;
     
@@ -62,6 +65,7 @@ public class FXMLDocumentController implements Initializable
         //colunas = new ArrayList<TableColumn>();
         dados = FXCollections.observableArrayList();
         num_neuronios = 0;
+        
     }    
 
     @FXML
@@ -84,23 +88,32 @@ public class FXMLDocumentController implements Initializable
 
                 num_neuronios = neuronios.length - 1;
                 
+                colTabela = new TableColumn[neuronios.length];
                 for(int i = 0; i < neuronios.length; i++)
                 {
-                    TableColumn<String[], String> col = new TableColumn(neuronios[i]);
-                    col.setCellValueFactory(new PropertyValueFactory<>(neuronios[i]));
-                    tbNeuronios.getColumns().add(col);
+                    final int j = i;
+                    TableColumn col = new TableColumn(neuronios[i]);
+                    col.setCellValueFactory(new Callback<CellDataFeatures<ObservableList,String>,ObservableValue<String>>(){
+                        @Override
+                        public ObservableValue<String> call(CellDataFeatures<ObservableList, String> param) {                                                                                             
+                    return new SimpleStringProperty(param.getValue().get(j).toString());} 
+                    });
+                    tbNeuronios.getColumns().addAll(col);
                 }
+                
+                ObservableList<String> row;
                 
                 line = br.readLine();
                 while(line != null)
                 {
                     String[] linha = line.split(",");
-                    dados.add(linha);
-                    tbNeuronios.getItems().add(linha);
+                    row = FXCollections.observableArrayList();
+                    row.addAll(linha);
+                    //dados.add(linha);
+                    dados.add(row);
                     line = br.readLine();
                 }
-                /*tbNeuronios.getItems().addAll(dados);
-                tbNeuronios.refresh();*/
+                tbNeuronios.getItems().addAll(dados);
             }
             System.out.println(neuronios.length);
             
