@@ -23,6 +23,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -53,11 +54,31 @@ public class FXMLDocumentController implements Initializable
     private String[] neuronios;
     private ObservableList<ObservableList> dados;
     private TableColumn[] colTabela;
+    private ArrayList<String> saidas;
+    private double mediaGeometrica;
     
     @FXML
     private TableView<ObservableList> tbNeuronios;
     @FXML
     private JFXButton btAvancar;
+    @FXML
+    private JFXTextField tfCamadaEntrada;
+    @FXML
+    private JFXTextField tfCamadaSaida;
+    @FXML
+    private JFXTextField tfCamadaOculta;
+    @FXML
+    private JFXTextField tfValorErro;
+    @FXML
+    private RadioButton rbLinear;
+    @FXML
+    private RadioButton rbLogistica;
+    @FXML
+    private RadioButton rbHiperbolica;
+    @FXML
+    private JFXTextField tfN;
+    @FXML
+    private JFXTextField tfNumIteracoes;
     
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -65,7 +86,8 @@ public class FXMLDocumentController implements Initializable
         //colunas = new ArrayList<TableColumn>();
         dados = FXCollections.observableArrayList();
         num_neuronios = 0;
-        
+        saidas = new ArrayList<String>();
+        mediaGeometrica = 0;
     }    
 
     @FXML
@@ -111,11 +133,26 @@ public class FXMLDocumentController implements Initializable
                     row.addAll(linha);
                     //dados.add(linha);
                     dados.add(row);
+                    
+                    if(!saidas.contains(linha[num_neuronios]))
+                        saidas.add(linha[num_neuronios]);
+                    
                     line = br.readLine();
                 }
                 tbNeuronios.getItems().addAll(dados);
             }
-            System.out.println(neuronios.length);
+            
+            mediaGeometrica = Math.sqrt(saidas.size() * num_neuronios);
+            //mediaGeometrica = Math.floor(mediaGeometrica);
+            System.out.println("MG: " + mediaGeometrica);
+            
+            tfCamadaEntrada.setText(num_neuronios + "");
+            tfCamadaSaida.setText(saidas.size() + "");
+            tfCamadaOculta.setText((int)mediaGeometrica + "");
+            tfNumIteracoes.setText("2000");
+            tfValorErro.setText("0.00001");
+            tfN.setText("0.2");
+            rbLinear.setSelected(true);
             
             btAbrirArquivo.setStyle("-fx-border-color: #00ff33");
             tfArquivo.setUnFocusColor(Paint.valueOf("#00ff33"));
