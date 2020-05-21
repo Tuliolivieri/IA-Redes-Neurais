@@ -48,8 +48,10 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private JFXTextField tfArquivo;
     
-    private File file;
+    private File fileTreino;
+    private File fileTeste;
     private BufferedReader br;
+    private BufferedReader br2;
     private int num_neuronios;
     private String[] neuronios;
     private ObservableList<ObservableList> dados;
@@ -79,6 +81,8 @@ public class FXMLDocumentController implements Initializable
     private JFXTextField tfN;
     @FXML
     private JFXTextField tfNumIteracoes;
+    @FXML
+    private JFXTextField tfArquivoTeste;
     
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -88,19 +92,23 @@ public class FXMLDocumentController implements Initializable
         num_neuronios = 0;
         saidas = new ArrayList<String>();
         mediaGeometrica = 0;
+        
+        btAvancar.setDisable(true);
     }    
 
     @FXML
     private void clkAbrirArquivo(ActionEvent event) throws FileNotFoundException, IOException
     {
         FileChooser fileChooser = new FileChooser();
-
-        file = fileChooser.showOpenDialog(btAbrirArquivo.getParent().getScene().getWindow());
-        if (file != null) 
+        fileChooser.setTitle("Abrir arquivo de Treino");
+        fileTreino = fileChooser.showOpenDialog(btAbrirArquivo.getParent().getScene().getWindow());
+        if (fileTreino != null) 
         {
-            tfArquivo.setText(file.getAbsolutePath());
+            tfArquivo.setText(fileTreino.getAbsolutePath());
             
-            br = new BufferedReader(new FileReader(file));
+            br = new BufferedReader(new FileReader(fileTreino));
+            
+            br2 = new BufferedReader(new FileReader(fileTreino));
             
             String line = br.readLine();
             
@@ -123,12 +131,45 @@ public class FXMLDocumentController implements Initializable
                     tbNeuronios.getColumns().addAll(col);
                 }
                 
+                double[] vetmin = new double[num_neuronios];
+                double[] vetmax = new double[num_neuronios];
+                
+                for(int i = 0; i < num_neuronios; i++)
+                    vetmin[i] = Double.MAX_VALUE;
+                
+                line = br2.readLine();
+                line = br2.readLine();
+                while(line != null)
+                {
+                    String[] linha = line.split(",");
+                    for(int i = 0; i < num_neuronios; i++)
+                    {
+                        if(vetmin[i] > Double.parseDouble(linha[i]))
+                            vetmin[i] = Double.parseDouble(linha[i]);
+                        else if(vetmax[i] < Double.parseDouble(linha[i]))
+                            vetmax[i] = Double.parseDouble(linha[i]);
+                    }
+                    line = br2.readLine();
+                }
+                
+                for(int i = 0; i < num_neuronios; i++)
+                {
+                    System.out.println("Min: " + vetmin[i] + ", Max: " + vetmax[i]);
+                }
+                
                 ObservableList<String> row;
                 
                 line = br.readLine();
                 while(line != null)
                 {
                     String[] linha = line.split(",");
+                    
+                    for(int i = 0; i < num_neuronios; i++)
+                    {
+                        double n = Double.parseDouble(linha[i]);
+                        linha[i] = ((n - vetmin[i])/(vetmax[i] - vetmin[i])) + "";
+                    }
+                    
                     row = FXCollections.observableArrayList();
                     row.addAll(linha);
                     //dados.add(linha);
@@ -143,8 +184,8 @@ public class FXMLDocumentController implements Initializable
             }
             
             mediaGeometrica = Math.sqrt(saidas.size() * num_neuronios);
-            //mediaGeometrica = Math.floor(mediaGeometrica);
             System.out.println("MG: " + mediaGeometrica);
+            System.out.println("Num. Dados: " + dados.size());
             
             tfCamadaEntrada.setText(num_neuronios + "");
             tfCamadaSaida.setText(saidas.size() + "");
@@ -153,9 +194,17 @@ public class FXMLDocumentController implements Initializable
             tfValorErro.setText("0.00001");
             tfN.setText("0.2");
             rbLinear.setSelected(true);
-            
-            btAbrirArquivo.setStyle("-fx-border-color: #00ff33");
             tfArquivo.setUnFocusColor(Paint.valueOf("#00ff33"));
+            
+            fileChooser.setTitle("Abrir arquivo de Teste");
+            fileTeste = fileChooser.showOpenDialog(btAbrirArquivo.getParent().getScene().getWindow());
+            if(fileTreino != null)
+            {
+                btAbrirArquivo.setStyle("-fx-border-color: #00ff33");
+                tfArquivoTeste.setText(fileTeste.getAbsolutePath());
+                tfArquivoTeste.setUnFocusColor(Paint.valueOf("#00ff33"));
+                btAvancar.setDisable(false);
+            }
         }
     }
 
