@@ -61,8 +61,8 @@
                <children>
                   <Label layoutX="10.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Configurações número de neurônios " />
                   <JFXTextField fx:id="tfCamadaEntrada" editable="false" focusColor="#00ff33" labelFloat="true" layoutX="14.0" layoutY="21.0" prefHeight="25.0" prefWidth="140.0" promptText="Camada de Entrada:" />
-                  <JFXTextField fx:id="tfCamadaSaida" editable="false" focusColor="#00ff33" labelFloat="true" layoutX="15.0" layoutY="57.0" prefHeight="25.0" prefWidth="140.0" promptText="Camada de Saida:" />
-                  <JFXTextField fx:id="tfCamadaOculta" focusColor="#00ff33" labelFloat="true" layoutX="15.0" layoutY="93.0" prefHeight="25.0" prefWidth="140.0" promptText="Camada Oculta:" />
+                  <JFXTextField fx:id="tfCamadaSaida" editable="false" focusColor="#00ff33" labelFloat="true" layoutX="15.0" layoutY="61.0" prefHeight="25.0" prefWidth="140.0" promptText="Camada de Saida:" />
+                  <JFXTextField fx:id="tfCamadaOculta" focusColor="#00ff33" labelFloat="true" layoutX="15.0" layoutY="101.0" prefHeight="25.0" prefWidth="140.0" promptText="Camada Oculta:" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="241.0" layoutY="15.0" prefHeight="57.0" prefWidth="177.0" style="-fx-border-style: dotted;">
@@ -71,16 +71,33 @@
                   <JFXTextField fx:id="tfValorErro" focusColor="#00ff33" layoutX="14.0" layoutY="16.0" prefHeight="25.0" prefWidth="92.0" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="539.0" layoutY="14.0" prefHeight="138.0" prefWidth="251.0" style="-fx-border-style: dotted;">
+            <AnchorPane layoutX="538.0" layoutY="14.0" prefHeight="138.0" prefWidth="251.0" style="-fx-border-style: dotted;">
                <children>
                   <Label layoutX="10.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Função de Transferência " />
-                  <RadioButton fx:id="rbLinear" layoutX="14.0" layoutY="36.0" mnemonicParsing="false" text="Linear">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="transferFunction" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="rbLogistica" layoutX="14.0" layoutY="61.0" mnemonicParsing="false" text="Logística" toggleGroup="$transferFunction" />
-                  <RadioButton fx:id="rbHiperbolica" layoutX="14.0" layoutY="86.0" mnemonicParsing="false" text="Hiperbólica" toggleGroup="$transferFunction" />
+                  <Pane layoutX="10.0" layoutY="15.0" prefHeight="113.0" prefWidth="106.0" style="-fx-border-style: dotted;">
+                     <children>
+                        <RadioButton fx:id="rbEntradaLinear" layoutX="12.0" layoutY="22.0" mnemonicParsing="false" text="Linear">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="transferFunctionEntrada" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="rbEntradaLogistica" layoutX="12.0" layoutY="48.0" mnemonicParsing="false" text="Logística" toggleGroup="$transferFunctionEntrada" />
+                        <RadioButton fx:id="rbEntradaHiperbolica" layoutX="12.0" layoutY="74.0" mnemonicParsing="false" text="Hiperbólica" toggleGroup="$transferFunctionEntrada" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="16.0" layoutY="7.0" style="-fx-background-color: #EEEEEE;" text=" Entrada " />
+                  <Pane layoutX="126.0" layoutY="15.0" prefHeight="113.0" prefWidth="106.0" style="-fx-border-style: dotted;">
+                     <children>
+                        <RadioButton fx:id="rbSaidaLinear" layoutX="12.0" layoutY="22.0" mnemonicParsing="false" text="Linear">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="transferFunctionSaida" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="rbSaidaLogistica" layoutX="12.0" layoutY="48.0" mnemonicParsing="false" text="Logística" toggleGroup="$transferFunctionSaida" />
+                        <RadioButton fx:id="rbSaidaHiperbolica" layoutX="12.0" layoutY="74.0" mnemonicParsing="false" text="Hiperbólica" toggleGroup="$transferFunctionSaida" />
+                     </children>
+                  </Pane>
+                  <Label layoutX="132.0" layoutY="7.0" style="-fx-background-color: #EEEEEE;" text=" Saída " />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="428.0" layoutY="14.0" prefHeight="138.0" prefWidth="102.0" style="-fx-border-style: dotted;">

@@ -22,16 +22,13 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.paint.Paint;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Callback;
 
 /** 
@@ -41,8 +38,6 @@ import javafx.util.Callback;
 public class FXMLDocumentController implements Initializable
 {
 
-    @FXML
-    private ToggleGroup transferFunction;
     @FXML
     private JFXButton btAbrirArquivo;
     @FXML
@@ -72,17 +67,27 @@ public class FXMLDocumentController implements Initializable
     @FXML
     private JFXTextField tfValorErro;
     @FXML
-    private RadioButton rbLinear;
-    @FXML
-    private RadioButton rbLogistica;
-    @FXML
-    private RadioButton rbHiperbolica;
-    @FXML
     private JFXTextField tfN;
     @FXML
     private JFXTextField tfNumIteracoes;
     @FXML
     private JFXTextField tfArquivoTeste;
+    @FXML
+    private RadioButton rbEntradaLinear;
+    @FXML
+    private ToggleGroup transferFunctionEntrada;
+    @FXML
+    private RadioButton rbEntradaLogistica;
+    @FXML
+    private RadioButton rbEntradaHiperbolica;
+    @FXML
+    private RadioButton rbSaidaLinear;
+    @FXML
+    private ToggleGroup transferFunctionSaida;
+    @FXML
+    private RadioButton rbSaidaLogistica;
+    @FXML
+    private RadioButton rbSaidaHiperbolica;
     
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -193,7 +198,8 @@ public class FXMLDocumentController implements Initializable
             tfNumIteracoes.setText("2000");
             tfValorErro.setText("0.00001");
             tfN.setText("0.2");
-            rbLinear.setSelected(true);
+            rbEntradaLinear.setSelected(true);
+            rbSaidaLinear.setSelected(true);
             tfArquivo.setUnFocusColor(Paint.valueOf("#00ff33"));
             
             fileChooser.setTitle("Abrir arquivo de Teste");
