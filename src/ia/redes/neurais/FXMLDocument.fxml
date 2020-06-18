@@ -12,31 +12,31 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="820.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ia.redes.neurais.FXMLDocumentController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1131.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ia.redes.neurais.FXMLDocumentController">
    <top>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="1111.0" BorderPane.alignment="CENTER">
          <children>
-            <Label layoutX="312.0" layoutY="13.0" text="Inteligência Artificial">
+            <Label layoutX="467.0" layoutY="18.0" text="Inteligência Artificial">
                <font>
                   <Font name="Eras Demi ITC" size="18.0" />
                </font>
             </Label>
-            <Label layoutX="320.0" layoutY="37.0" text="Redes Neurais">
+            <Label layoutX="475.0" layoutY="42.0" text="Redes Neurais">
                <font>
                   <Font name="Eras Demi ITC" size="24.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="638.0" layoutY="14.0" prefHeight="17.0" prefWidth="161.0" text="Tulio Olivieri - 101629230">
+            <Label alignment="CENTER_RIGHT" layoutX="949.0" layoutY="14.0" prefHeight="17.0" prefWidth="161.0" text="Tulio Olivieri - 101629230">
                <font>
                   <Font name="Eras Demi ITC" size="12.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="638.0" layoutY="32.0" prefHeight="17.0" prefWidth="161.0" text="Felipe Simões - 101628633">
+            <Label alignment="CENTER_RIGHT" layoutX="949.0" layoutY="32.0" prefHeight="17.0" prefWidth="161.0" text="Felipe Simões - 101628633">
                <font>
                   <Font name="Eras Demi ITC" size="12.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" layoutX="622.0" layoutY="48.0" prefHeight="17.0" prefWidth="177.0" text="João Vitor Sabino - 101527802">
+            <Label alignment="CENTER_RIGHT" layoutX="933.0" layoutY="48.0" prefHeight="17.0" prefWidth="177.0" text="João Vitor Sabino - 101527802">
                <font>
                   <Font name="Eras Demi ITC" size="12.0" />
                </font>
@@ -55,26 +55,29 @@
       </Pane>
    </top>
    <center>
-      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="800.0" style="-fx-border-style: solid; -fx-background-color: #EEEEEE;" BorderPane.alignment="CENTER">
+      <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="596.0" prefWidth="1110.0" style="-fx-border-style: solid; -fx-background-color: #EEEEEE;" BorderPane.alignment="CENTER">
          <children>
-            <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="138.0" prefWidth="215.0" style="-fx-border-style: dotted;">
+            <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="138.0" prefWidth="439.0" style="-fx-border-style: dotted;">
                <children>
                   <Label layoutX="10.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Configurações número de neurônios " />
-                  <JFXTextField fx:id="tfCamadaEntrada" editable="false" focusColor="#00ff33" labelFloat="true" layoutX="14.0" layoutY="21.0" prefHeight="25.0" prefWidth="140.0" promptText="Camada de Entrada:" />
-                  <JFXTextField fx:id="tfCamadaSaida" editable="false" focusColor="#00ff33" labelFloat="true" layoutX="15.0" layoutY="61.0" prefHeight="25.0" prefWidth="140.0" promptText="Camada de Saida:" />
-                  <JFXTextField fx:id="tfCamadaOculta" focusColor="#00ff33" labelFloat="true" layoutX="15.0" layoutY="101.0" prefHeight="25.0" prefWidth="140.0" promptText="Camada Oculta:" />
+                  <JFXTextField fx:id="tfCamadaEntrada" editable="false" focusColor="#00ff33" labelFloat="true" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="140.0" />
+                  <JFXTextField fx:id="tfCamadaSaida" editable="false" focusColor="#00ff33" labelFloat="true" layoutX="210.0" layoutY="61.0" prefHeight="25.0" prefWidth="140.0" />
+                  <JFXTextField fx:id="tfCamadaOculta" focusColor="#00ff33" labelFloat="true" layoutX="210.0" layoutY="101.0" prefHeight="25.0" prefWidth="140.0" />
+                  <Label layoutX="92.0" layoutY="25.0" text="Camada de Entrada:" />
+                  <Label layoutX="104.0" layoutY="65.0" text="Camada de Saida:" />
+                  <Label layoutX="115.0" layoutY="105.0" text="Camada Oculta:" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="241.0" layoutY="15.0" prefHeight="57.0" prefWidth="177.0" style="-fx-border-style: dotted;">
+            <AnchorPane layoutX="474.0" layoutY="15.0" prefHeight="57.0" prefWidth="177.0" style="-fx-border-style: dotted;">
                <children>
                   <Label layoutX="11.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Valor do erro " />
                   <JFXTextField fx:id="tfValorErro" focusColor="#00ff33" layoutX="14.0" layoutY="16.0" prefHeight="25.0" prefWidth="92.0" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="538.0" layoutY="14.0" prefHeight="138.0" prefWidth="251.0" style="-fx-border-style: dotted;">
+            <AnchorPane layoutX="794.0" layoutY="14.0" prefHeight="138.0" prefWidth="303.0" style="-fx-border-style: dotted;">
                <children>
                   <Label layoutX="10.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Função de Transferência " />
-                  <Pane layoutX="10.0" layoutY="15.0" prefHeight="113.0" prefWidth="106.0" style="-fx-border-style: dotted;">
+                  <Pane layoutX="10.0" layoutY="15.0" prefHeight="113.0" prefWidth="135.0" style="-fx-border-style: dotted;">
                      <children>
                         <RadioButton fx:id="rbEntradaLinear" layoutX="12.0" layoutY="22.0" mnemonicParsing="false" text="Linear">
                            <toggleGroup>
@@ -86,7 +89,7 @@
                      </children>
                   </Pane>
                   <Label layoutX="16.0" layoutY="7.0" style="-fx-background-color: #EEEEEE;" text=" Entrada " />
-                  <Pane layoutX="126.0" layoutY="15.0" prefHeight="113.0" prefWidth="106.0" style="-fx-border-style: dotted;">
+                  <Pane layoutX="157.0" layoutY="15.0" prefHeight="113.0" prefWidth="135.0" style="-fx-border-style: dotted;">
                      <children>
                         <RadioButton fx:id="rbSaidaLinear" layoutX="12.0" layoutY="22.0" mnemonicParsing="false" text="Linear">
                            <toggleGroup>
@@ -97,40 +100,40 @@
                         <RadioButton fx:id="rbSaidaHiperbolica" layoutX="12.0" layoutY="74.0" mnemonicParsing="false" text="Hiperbólica" toggleGroup="$transferFunctionSaida" />
                      </children>
                   </Pane>
-                  <Label layoutX="132.0" layoutY="7.0" style="-fx-background-color: #EEEEEE;" text=" Saída " />
+                  <Label layoutX="163.0" layoutY="7.0" style="-fx-background-color: #EEEEEE;" text=" Saída " />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="428.0" layoutY="14.0" prefHeight="138.0" prefWidth="102.0" style="-fx-border-style: dotted;">
+            <AnchorPane layoutX="662.0" layoutY="14.0" prefHeight="138.0" prefWidth="120.0" style="-fx-border-style: dotted;">
                <children>
                   <JFXTextField fx:id="tfN" focusColor="#00ff33" labelFloat="true" layoutX="14.0" layoutY="57.0" prefHeight="25.0" prefWidth="74.0" promptText="N:" />
                </children>
             </AnchorPane>
-            <AnchorPane layoutX="241.0" layoutY="95.0" prefHeight="57.0" prefWidth="177.0" style="-fx-border-style: dotted;">
+            <AnchorPane layoutX="474.0" layoutY="95.0" prefHeight="57.0" prefWidth="177.0" style="-fx-border-style: dotted;">
                <children>
                   <Label layoutX="11.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Número de Iterações " />
                   <JFXTextField fx:id="tfNumIteracoes" focusColor="#00ff33" layoutX="14.0" layoutY="16.0" prefHeight="25.0" prefWidth="92.0" />
                </children>
             </AnchorPane>
-            <JFXButton fx:id="btAbrirArquivo" layoutX="639.0" layoutY="168.0" onAction="#clkAbrirArquivo" prefHeight="25.0" prefWidth="150.0" style="-fx-border-color: red;" text="Carregar Arquivos">
+            <JFXButton fx:id="btAbrirArquivo" layoutX="946.0" layoutY="170.0" onAction="#clkAbrirArquivo" prefHeight="25.0" prefWidth="150.0" style="-fx-border-color: red;" text="Carregar Arquivos">
                <font>
                   <Font name="Eras Demi ITC" size="12.0" />
                </font></JFXButton>
-            <JFXTextField fx:id="tfArquivo" editable="false" labelFloat="true" layoutX="14.0" layoutY="168.0" prefHeight="25.0" prefWidth="299.0" promptText="Caminho do Arquivo de Treino" unFocusColor="RED" />
+            <JFXTextField fx:id="tfArquivo" editable="false" labelFloat="true" layoutX="14.0" layoutY="168.0" prefHeight="25.0" prefWidth="440.0" promptText="Caminho do Arquivo de Treino" unFocusColor="RED" />
             <ScrollPane layoutX="1.0" layoutY="206.0">
                <content>
-                  <TableView fx:id="tbNeuronios" prefHeight="349.0" prefWidth="798.0">
+                  <TableView fx:id="tbNeuronios" prefHeight="349.0" prefWidth="1107.0">
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
                   </TableView>
                </content>
             </ScrollPane>
-            <JFXButton fx:id="btAvancar" layoutX="675.0" layoutY="559.0" onAction="#clkAvancar" prefHeight="25.0" prefWidth="115.0" style="-fx-border-color: #2f8d50; -fx-background-color: #ccffcc;" text="Avançar" textFill="#2f8d50">
+            <JFXButton fx:id="btAvancar" layoutX="991.0" layoutY="560.0" onAction="#clkAvancar" prefHeight="25.0" prefWidth="115.0" style="-fx-border-color: #2f8d50; -fx-background-color: #ccffcc;" text="Avançar" textFill="#2f8d50">
                <font>
                   <Font name="System Bold" size="14.0" />
                </font>
             </JFXButton>
-            <JFXTextField fx:id="tfArquivoTeste" editable="false" labelFloat="true" layoutX="327.0" layoutY="168.0" prefHeight="25.0" prefWidth="300.0" promptText="Caminho do Arquivo de Teste" unFocusColor="RED" />
+            <JFXTextField fx:id="tfArquivoTeste" editable="false" labelFloat="true" layoutX="482.0" layoutY="168.0" prefHeight="25.0" prefWidth="440.0" promptText="Caminho do Arquivo de Teste" unFocusColor="RED" />
          </children>
       </Pane>
    </center>
