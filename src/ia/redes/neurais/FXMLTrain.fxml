@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
 <?import javafx.scene.chart.NumberAxis?>
-<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -17,7 +17,7 @@
       <HBox prefHeight="100.0" prefWidth="200.0" />
       <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0">
          <children>
-            <LineChart fx:id="chartLoss" createSymbols="false" layoutY="-2.0" prefHeight="344.0" prefWidth="874.0" title="Perdas por Época">
+            <LineChart fx:id="chartLoss" createSymbols="false" layoutY="-2.0" legendVisible="false" prefHeight="344.0" prefWidth="874.0" title="Perdas por Época">
                <xAxis>
                   <CategoryAxis side="BOTTOM" fx:id="xAxis" />
                </xAxis>
@@ -30,7 +30,14 @@
       <HBox prefHeight="426.0" prefWidth="874.0" spacing="20.0">
          <children>
             <TableView fx:id="tableConfusion" prefHeight="314.0" prefWidth="359.0" style="-fx-border-color: #555555; -fx-border-style: solid;" visible="false" />
-            <PieChart fx:id="pieChart" prefHeight="310.0" prefWidth="389.0" />
+            <BarChart fx:id="barChart" title="Taxa de Acertos">
+              <xAxis>
+                <CategoryAxis side="BOTTOM" />
+              </xAxis>
+              <yAxis>
+                <NumberAxis side="LEFT" />
+              </yAxis>
+            </BarChart>
          </children>
          <padding>
             <Insets bottom="10.0" left="30.0" right="10.0" top="10.0" />

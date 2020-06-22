@@ -12,6 +12,7 @@ import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.PieChart;
@@ -32,11 +33,12 @@ public class FXMLTrainController implements Initializable {
     @FXML
     private CategoryAxis xAxis;
     @FXML
-    private PieChart pieChart;
+    private BarChart barChart;
     
     private TreinamentoNeural net;
     private List<Estrutura> lTeste;
     private Thread thread;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -118,13 +120,16 @@ public class FXMLTrainController implements Initializable {
              data.add(row); 
         }
         
-        ObservableList<PieChart.Data> pieChartData =
-                FXCollections.observableArrayList(
-                new PieChart.Data("Acertos "+((acertos/((double)total))*100.0)+"%", acertos),
-                new PieChart.Data("Erros "+ (((total-acertos)/(double)total)*100.0)+"%", (total-acertos)));
-        
-                pieChart.setData(pieChartData); 
-                pieChart.setTitle("Taxa de Acerto");
+                
+                XYChart.Series serieAcertos = new XYChart.Series();
+                serieAcertos.setName("Acertos: "+((acertos/((double)total))*100.0)+"%");
+                serieAcertos.getData().add(new XYChart.Data("Acertos", acertos));
+                
+                XYChart.Series serieErros = new XYChart.Series();
+                serieErros.setName("Erros: " + (((total-acertos)/(double)total)*100.0)+"%");
+                serieErros.getData().add(new XYChart.Data("Erros", (total-acertos)));
+                
+                barChart.getData().addAll(serieAcertos, serieErros);
         
         tableConfusion.setItems(data);       
         tableConfusion.setVisible(true);
