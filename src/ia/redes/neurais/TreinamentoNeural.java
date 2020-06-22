@@ -11,72 +11,81 @@ import java.util.Random;
 public class TreinamentoNeural {
     
     private List<Estrutura> dados;
-    private List<neuronio> Lco, Lsaida;
+    private List<neuronio> cmdo, Lsaida;
     private List<Double> Lerros = new ArrayList<>();
-
+    private List<String> classes;
     private double[][] pesosOculta, pesosSaida;
-    private int[][] mDesejada;
     private double erro, erroRede = 10, txA;
-    private int faOculta, faSaida;
-    private int qtIt, qtCo;
-    private List<String> rotulos;
-    private boolean finished = false;
+    private int[][] mDesejada;
+    private int funE, funS, iteracoes, camadaOculta, saida;
+    
     Random rand = new Random();
 
-    public TreinamentoNeural(List<Estrutura> dados, double erro, int fao, int fas, double txA, int qtIt, int qtCo) {
+    public TreinamentoNeural(List<Estrutura> dados, double erro, int funE, int funS, double txA, int iteracoes, int camadaOculta, int saida) {
         this.dados = dados;
         this.erro = erro;
-        this.faOculta = fao;
-        this.faSaida = fas;
+        this.funE = funE;
+        this.funS = funS;
         this.txA = txA;
-        this.qtIt = qtIt;
-        this.qtCo = qtCo;
+        this.iteracoes = iteracoes;
+        this.camadaOculta = camadaOculta;
+        this.saida = saida;
         inicializaMatriz();
     }
-
-    private int getQtSaida() {
-        rotulos = new ArrayList();
-
-        for (int i = 0; i < dados.size(); i++)
-            if (!rotulos.contains(dados.get(i).getClasse())) 
-                rotulos.add(dados.get(i).getClasse());
-
-        return rotulos.size();
+    
+    
+    public List<Double> getErros() {
+        return this.Lerros;
     }
 
-    //Inicializa camada oculta e gera pesos aleatorios para a camada
+    public List<String> getClasses()
+    {
+        return classes;
+    }
+
+   
+    private void carregaClasses() {
+        classes = new ArrayList();
+
+        for (int i = 0; i < dados.size(); i++)
+            if (!classes.contains(dados.get(i).getClasse())) 
+                classes.add(dados.get(i).getClasse());
+    }
+
+    
     public void inicializaCO() {
         
-        Lco = new ArrayList<>();
-        pesosOculta = new double[qtCo][dados.get(0).getAtributos().size()];
-        for (int i = 0; i < qtCo; i++)
+        cmdo = new ArrayList<>();
+        pesosOculta = new double[camadaOculta][dados.get(0).getAtributos().size()];
+        for (int i = 0; i < camadaOculta; i++)
         {
-            Lco.add(new neuronio());
+            cmdo.add(new neuronio());
             for (int j = 0; j < dados.get(0).getAtributos().size(); j++)
                 pesosOculta[i][j] = rand.nextDouble()*4 - 2.0;
         }
         
     }
     
-    //Inicializa camada de saida e gera pesos aleatorios para a camada
+   
     public void inicializaSaida() {
         Lsaida = new ArrayList<>();
-        pesosSaida = new double[getQtSaida()][qtCo];
-        for (int i = 0; i < getQtSaida(); i++)
+        pesosSaida = new double[saida][camadaOculta];
+        for (int i = 0; i < saida; i++)
         {
             Lsaida.add(new neuronio());
-            for (int j = 0; j < qtCo; j++) 
+            for (int j = 0; j < camadaOculta; j++) 
                 pesosSaida[i][j] = rand.nextDouble()*4 - 2.0;
         }
     }
 
-    //Iniializa a matriz desejada, camada oculta e de saida
+    
     public void inicializaMatriz() {
         inicializaCO();
         inicializaSaida();
-        mDesejada = new int[getQtSaida()][getQtSaida()];
-        for (int i = 0; i < getQtSaida(); i++) {
-            for (int j = 0; j < getQtSaida(); j++) {
+        carregaClasses();
+        mDesejada = new int[saida][saida];
+        for (int i = 0; i < saida; i++) {
+            for (int j = 0; j < saida; j++) {
                 if (i == j)
                     mDesejada[i][i] = 1;
                 else
@@ -84,100 +93,70 @@ public class TreinamentoNeural {
             }
         }
     }
-
-    public double linear(Double net) {
-        return net / 10.0;
-    }
-
-    public double Dlinear(Double net) {
-        return 1.0 / 10.0;
-    }
-
-    public double logistica(Double net) {
-        return 1.0 / (1.0 + Math.pow(Math.E, -net));
-    }
-
-    public double Dlogistica(Double net) {
-        return net * (1.0 - net);
-    }
-
-    public double hiperbolica(Double net) {
-        double d = Math.pow(Math.E, -2.0 * net);
-        return (1.0 - d) / (1.0 + d);
-    }
-
-    public double Dhiperbolica(Double net) {
-        return 1.0 - Math.pow(net, 2);
-    }
     
-    //1 - Linear
-    //2 - Logistica
-    //3 - Hiperbolica
+    
 
-    public void treinar() {
-        int epocas = 0;
+    public void treinamento() {
+       
         double som_erro;
-        while (erro < erroRede && epocas < qtIt) {
+        
+        for(int e = 0; erro < erroRede && e < iteracoes; e++)
+         {
             som_erro = 0;
-            for (Estrutura d : dados) {                
-                for (int i = 0; i < Lco.size(); i++) // Cálculo do NET
+            for (Estrutura d : dados) 
+            {                
+                for (int i = 0; i < cmdo.size(); i++) 
                 {
                     double soma = 0;
                     for (int j = 0; j < d.getAtributos().size(); j++)
                         soma += d.getAtributos().get(j) * pesosOculta[i][j];
-                        
-                    Lco.get(i).setNet(soma);
-
-                    switch (faOculta) {
-                    //tg hiperbolica
+                    cmdo.get(i).setNet(soma);
+                    switch (funE) {
                         case 3:
-                            Lco.get(i).setValor(hiperbolica(Lco.get(i).getNet()));
+                            cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),5));
                             break;
                         case 2:
-                            Lco.get(i).setValor(logistica(Lco.get(i).getNet()));
+                            cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),3));
                             break;
                         default:
-                            Lco.get(i).setValor(linear(Lco.get(i).getNet()));
+                            cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),1));
                             break;
                     }
                 }
 
                 for (int i = 0; i < Lsaida.size(); i++) {
                     double soma = 0;
-                    for (int j = 0; j < Lco.size(); j++)
-                        soma += Lco.get(j).getValor() * pesosSaida[i][j];
-                    
+                    for (int j = 0; j < cmdo.size(); j++)
+                        soma += cmdo.get(j).getValor() * pesosSaida[i][j];
                     Lsaida.get(i).setNet(soma);
-
-                    switch (faSaida) {
-                    //tg hiperbolica
+                    switch (funS) {
                         case 3:
-                            Lsaida.get(i).setValor(hiperbolica(Lsaida.get(i).getNet()));
+                            Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),5));
                             break;
                         case 2:                    
-                            Lsaida.get(i).setValor(logistica(Lsaida.get(i).getNet()));
+                            Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),3));
                             break;
                         default:
-                            Lsaida.get(i).setValor(linear(Lsaida.get(i).getNet()));
+                            Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),1));
                             break;
                     }
                 }
 
                 erroRede = 0;
-                int index = rotulos.indexOf(d.getClasse());
+                int index = classes.indexOf(d.getClasse());
                 for (int i = 0; i < Lsaida.size(); i++) {
                     Lsaida.get(i).setErro((double) mDesejada[index][i] - Lsaida.get(i).getValor());
                     erroRede += Math.pow(Lsaida.get(i).getErro(), 2);
 
-                    switch (faSaida) {
+                    switch (funS) {
                         case 3:
-                            Lsaida.get(i).setGradiente(Lsaida.get(i).getErro() * Dhiperbolica(Lsaida.get(i).getValor()));
+                            Lsaida.get(i).setGradiente(Lsaida.get(i).getErro() * equa(Lsaida.get(i).getValor(),6));
                             break;
                         case 2:
-                            Lsaida.get(i).setGradiente(Lsaida.get(i).getErro() * Dlogistica(Lsaida.get(i).getValor()));
+                            Lsaida.get(i).setGradiente(Lsaida.get(i).getErro() * equa(Lsaida.get(i).getValor(),4));
                             break;
                         default:
-                            Lsaida.get(i).setGradiente(Lsaida.get(i).getErro() * Dlinear(Lsaida.get(i).getValor()));
+                            Lsaida.get(i).setGradiente(Lsaida.get(i).getErro() * equa(Lsaida.get(i).getValor(),2));
                             break;
                     }
                 }
@@ -185,127 +164,128 @@ public class TreinamentoNeural {
                 erroRede /= 2;
                 som_erro += erroRede;
 
-                for (int i = 0; i < Lco.size(); i++) {
+                for (int i = 0; i < cmdo.size(); i++) {
                     double somErro = 0;
                     for (int j = 0; j < Lsaida.size(); j++) 
                         somErro += Lsaida.get(j).getGradiente() * pesosSaida[j][i];
                     
-                    switch (faOculta) {
+                    switch (funE) {
                         case 3:
-                            Lco.get(i).setErro(somErro * Dhiperbolica(Lco.get(i).getValor()));
+                            cmdo.get(i).setErro(somErro * equa(cmdo.get(i).getValor(),6));
                             break;
                         case 2:
-                            Lco.get(i).setErro(somErro * Dlogistica(Lco.get(i).getValor()));
+                            cmdo.get(i).setErro(somErro * equa(cmdo.get(i).getValor(),4));
                             break;
                         default:
-                            Lco.get(i).setErro(somErro * Dlinear(Lco.get(i).getValor()));
+                            cmdo.get(i).setErro(somErro * equa(cmdo.get(i).getValor(),2));
                             break;
                     }
                 }
-
-                //Atualização de pesos da camada de saida
+                
                 for (int i = 0; i < Lsaida.size(); i++)
-                    for (int j = 0; j < Lco.size(); j++)
-                        pesosSaida[i][j] = pesosSaida[i][j] + txA * Lsaida.get(i).getGradiente() * Lco.get(j).getValor();
-
-                //Atualização de pesos da camada oculta
-                for (int i = 0; i < Lco.size(); i++)
+                    for (int j = 0; j < cmdo.size(); j++)
+                        pesosSaida[i][j] = pesosSaida[i][j] + txA * Lsaida.get(i).getGradiente() * cmdo.get(j).getValor();
+                for (int i = 0; i < cmdo.size(); i++)
                     for (int j = 0; j < d.getAtributos().size(); j++) 
-                        pesosOculta[i][j] = pesosOculta[i][j] + txA * Lco.get(i).getErro()* d.getAtributos().get(j);
+                        pesosOculta[i][j] = pesosOculta[i][j] + txA * cmdo.get(i).getErro()* d.getAtributos().get(j);
             }
             
             erroRede = som_erro / dados.size();
-            System.out.println("Epoca: " + epocas + " Erro:" + erroRede);
+            System.out.println("Epoca: " + e + " Erro:" + erroRede);
             Lerros.add(erroRede);
-
-            if (erroRede < erro)
-                break;
-            
-            epocas++;
+            e++;
         }
-        this.finished = true;
     }
 
     public int[][] teste(List<Estrutura> Lteste) {
         
-        int [][] mConfusao = new int[getQtSaida()][getQtSaida()];
-        int cA = 0, tot = 0;
+        int [][] matrizConfusao = new int[saida][saida];
+        double soma;
+        int w;
+        int index;
         for (Estrutura d : Lteste) {
-            for (int i = 0; i < Lco.size(); i++) // Cálculo do NET
+            for (int i = 0; i < cmdo.size(); i++) 
             {
-                double soma = 0;
+                 soma = 0;
                 for (int j = 0; j < d.getAtributos().size(); j++)
                     soma += d.getAtributos().get(j) * pesosOculta[i][j];
-                
-                Lco.get(i).setNet(soma);
-
-                switch (faOculta) {
-                //tg hiperbolica
+                cmdo.get(i).setNet(soma);
+                switch (funE) {
                     case 3:
-                        Lco.get(i).setValor(hiperbolica(Lco.get(i).getNet()));
+                        cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),5));
                         break;
                     case 2:
-                        Lco.get(i).setValor(logistica(Lco.get(i).getNet()));
+                        cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),3));
                         break;
                     default:
-                        Lco.get(i).setValor(linear(Lco.get(i).getNet()));
+                        cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),1));
                         break;
                 }
             }
 
             for (int i = 0; i < Lsaida.size(); i++) {
-                double soma = 0;
-                for (int j = 0; j < Lco.size(); j++) 
-                    soma += Lco.get(j).getValor() * pesosSaida[i][j];
-                
+                 soma = 0;
+                for (int j = 0; j < cmdo.size(); j++) 
+                    soma += cmdo.get(j).getValor() * pesosSaida[i][j];
                 Lsaida.get(i).setNet(soma);
-
-                switch (faSaida) {
-                //tg hiperbolica
+                switch (funS) {
                     case 3:
-                        Lsaida.get(i).setValor(hiperbolica(Lsaida.get(i).getNet()));
+                        Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),5));
                         break;
                     case 2:
-                        Lsaida.get(i).setValor(logistica(Lsaida.get(i).getNet()));
+                        Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),3));
                         break;
                     default:
-                        Lsaida.get(i).setValor(linear(Lsaida.get(i).getNet()));
+                        Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),1));
                         break;
                 }
             }
 
-            int index = 0;
+             index = 0;
             double maior = Lsaida.get(0).getValor();
-
             for (int i = 1; i < Lsaida.size(); i++)                
                 if (Lsaida.get(i).getValor() > maior) {
                     maior = Lsaida.get(i).getValor();
                     index = i;
                 }
             
-            int i = 0;
-            for (; i < rotulos.size(); i++) {
-                if(rotulos.get(i).equals(d.getClasse()))
+             w = 0;
+            for (; w < saida; w++) {
+                if(classes.get(w).equals(d.getClasse()))
                     break;
             }
-            
-            mConfusao[i][index]++;
+            matrizConfusao[w][index]++;
         }
-        return mConfusao;
-    }
-
-    public boolean isFinished() {
-        return this.finished;
-    }
-
-    public List<Double> getErrors() {
-        return this.Lerros;
-    }
-
-    public List<String> getRotulos()
-    {
-        return rotulos;
+        return matrizConfusao;
     }
     
+    
+    public double equa(Double net,int qual){
+        
+         switch (qual) {
+                    case 1:
+                         return net / 10.0;
+                        
+                    case 2:
+                         return 1.0 / 10.0;
+                        
+                    case 3:
+                         return 1.0 / (1.0 + Math.pow(Math.E, -net));
+                        
+                    case 4:
+                         return net * (1.0 - net);
+
+                    case 5:
+                         double d = Math.pow(Math.E, -2.0 * net);
+                         return (1.0 - d) / (1.0 + d);
+                        
+                    case 6:
+                         return 1.0 - Math.pow(net, 2);     
+                }
+         return 0;
+         
+        }
+    
+  
     
 }
