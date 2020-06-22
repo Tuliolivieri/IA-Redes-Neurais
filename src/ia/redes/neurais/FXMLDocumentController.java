@@ -263,7 +263,8 @@ public class FXMLDocumentController implements Initializable {
                                             funS, 
                                             Double.parseDouble(tfN.getText()), 
                                             Integer.parseInt(tfNumIteracoes.getText()), 
-                                            Integer.parseInt(tfCamadaOculta.getText()));
+                                            Integer.parseInt(tfCamadaOculta.getText()),
+                                            saida);
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLTrain.fxml"));
             Parent root = (Parent) loader.load();
