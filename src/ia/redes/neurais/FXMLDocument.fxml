@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.Label?>
@@ -12,7 +17,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1131.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ia.redes.neurais.FXMLDocumentController">
+<BorderPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="1131.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ia.redes.neurais.FXMLDocumentController">
    <top>
       <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="78.0" prefWidth="1111.0" BorderPane.alignment="CENTER">
          <children>
@@ -60,9 +65,9 @@
             <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="138.0" prefWidth="439.0" style="-fx-border-style: dotted;">
                <children>
                   <Label layoutX="10.0" layoutY="-8.0" style="-fx-background-color: #EEEEEE;" text="Configurações número de neurônios " />
-                  <JFXTextField fx:id="tfCamadaEntrada" editable="false" focusColor="#00ff33" labelFloat="true" layoutX="209.0" layoutY="21.0" prefHeight="25.0" prefWidth="140.0" />
-                  <JFXTextField fx:id="tfCamadaSaida" editable="false" focusColor="#00ff33" labelFloat="true" layoutX="210.0" layoutY="61.0" prefHeight="25.0" prefWidth="140.0" />
-                  <JFXTextField fx:id="tfCamadaOculta" focusColor="#00ff33" labelFloat="true" layoutX="210.0" layoutY="101.0" prefHeight="25.0" prefWidth="140.0" />
+                  <JFXTextField fx:id="tfCamadaEntrada" editable="false" focusColor="#00ff33" labelFloat="true" layoutX="227.0" layoutY="21.0" prefHeight="26.0" prefWidth="122.0" />
+                  <JFXTextField fx:id="tfCamadaSaida" editable="false" focusColor="#00ff33" labelFloat="true" layoutX="229.0" layoutY="61.0" prefHeight="26.0" prefWidth="121.0" />
+                  <JFXTextField fx:id="tfCamadaOculta" focusColor="#00ff33" labelFloat="true" layoutX="227.0" layoutY="101.0" prefHeight="26.0" prefWidth="123.0" />
                   <Label layoutX="92.0" layoutY="25.0" text="Camada de Entrada:" />
                   <Label layoutX="104.0" layoutY="65.0" text="Camada de Saida:" />
                   <Label layoutX="115.0" layoutY="105.0" text="Camada Oculta:" />
@@ -105,7 +110,7 @@
             </AnchorPane>
             <AnchorPane layoutX="662.0" layoutY="14.0" prefHeight="138.0" prefWidth="120.0" style="-fx-border-style: dotted;">
                <children>
-                  <JFXTextField fx:id="tfN" focusColor="#00ff33" labelFloat="true" layoutX="14.0" layoutY="57.0" prefHeight="25.0" prefWidth="74.0" promptText="N:" />
+                  <JFXTextField fx:id="tfN" focusColor="#00ff33" labelFloat="true" layoutX="12.0" layoutY="57.0" prefHeight="26.0" prefWidth="76.0" promptText="N:" />
                </children>
             </AnchorPane>
             <AnchorPane layoutX="474.0" layoutY="95.0" prefHeight="57.0" prefWidth="177.0" style="-fx-border-style: dotted;">
