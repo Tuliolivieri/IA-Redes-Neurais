@@ -52,7 +52,7 @@ public class TreinamentoNeural {
                 classes.add(dados.get(i).getClasse());
     }
 
-    
+    //inicializa a camada Oculta e gera pesos aleatorios
     public void inicializaCO() {
         
         cmdo = new ArrayList<>();
@@ -66,7 +66,7 @@ public class TreinamentoNeural {
         
     }
     
-   
+   //inicializa a camada de saida e gera pesos aleatorios
     public void inicializaSaida() {
         Lsaida = new ArrayList<>();
         pesosSaida = new double[saida][camadaOculta];
@@ -78,7 +78,7 @@ public class TreinamentoNeural {
         }
     }
 
-    
+    //inicializa as camadas e gera a matrizz desejada
     public void inicializaMatriz() {
         inicializaCO();
         inicializaSaida();
@@ -113,13 +113,13 @@ public class TreinamentoNeural {
                     cmdo.get(i).setNet(soma);
                     switch (funE) {
                         case 3:
-                            cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),5));
+                            cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),5));//hiperbolica
                             break;
                         case 2:
-                            cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),3));
+                            cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),3));//logistica
                             break;
                         default:
-                            cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),1));
+                            cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),1));//linear
                             break;
                     }
                 }
@@ -131,13 +131,13 @@ public class TreinamentoNeural {
                     Lsaida.get(i).setNet(soma);
                     switch (funS) {
                         case 3:
-                            Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),5));
+                            Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),5));//hiperbolica
                             break;
                         case 2:                    
-                            Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),3));
+                            Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),3));//logistica
                             break;
                         default:
-                            Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),1));
+                            Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),1));//linear
                             break;
                     }
                 }
@@ -150,13 +150,13 @@ public class TreinamentoNeural {
 
                     switch (funS) {
                         case 3:
-                            Lsaida.get(i).setGradiente(Lsaida.get(i).getErro() * equa(Lsaida.get(i).getValor(),6));
+                            Lsaida.get(i).setGradiente(Lsaida.get(i).getErro() * equa(Lsaida.get(i).getValor(),6));//derivada hiperbolica
                             break;
                         case 2:
-                            Lsaida.get(i).setGradiente(Lsaida.get(i).getErro() * equa(Lsaida.get(i).getValor(),4));
+                            Lsaida.get(i).setGradiente(Lsaida.get(i).getErro() * equa(Lsaida.get(i).getValor(),4));//derivada logistica
                             break;
                         default:
-                            Lsaida.get(i).setGradiente(Lsaida.get(i).getErro() * equa(Lsaida.get(i).getValor(),2));
+                            Lsaida.get(i).setGradiente(Lsaida.get(i).getErro() * equa(Lsaida.get(i).getValor(),2));//derivada linear
                             break;
                     }
                 }
@@ -171,28 +171,33 @@ public class TreinamentoNeural {
                     
                     switch (funE) {
                         case 3:
-                            cmdo.get(i).setErro(somErro * equa(cmdo.get(i).getValor(),6));
+                            cmdo.get(i).setErro(somErro * equa(cmdo.get(i).getValor(),6));//derivada hiperbolica
                             break;
                         case 2:
-                            cmdo.get(i).setErro(somErro * equa(cmdo.get(i).getValor(),4));
+                            cmdo.get(i).setErro(somErro * equa(cmdo.get(i).getValor(),4));//derivada logistica
                             break;
                         default:
-                            cmdo.get(i).setErro(somErro * equa(cmdo.get(i).getValor(),2));
+                            cmdo.get(i).setErro(somErro * equa(cmdo.get(i).getValor(),2));//derivada linear
                             break;
                     }
                 }
                 
+                //atualiza o peso da camada de saida
                 for (int i = 0; i < Lsaida.size(); i++)
                     for (int j = 0; j < cmdo.size(); j++)
                         pesosSaida[i][j] = pesosSaida[i][j] + txA * Lsaida.get(i).getGradiente() * cmdo.get(j).getValor();
+                
+                //atualiza o peso da camada oculta
                 for (int i = 0; i < cmdo.size(); i++)
                     for (int j = 0; j < d.getAtributos().size(); j++) 
                         pesosOculta[i][j] = pesosOculta[i][j] + txA * cmdo.get(i).getErro()* d.getAtributos().get(j);
             }
             
             erroRede = som_erro / dados.size();
-            System.out.println("Epoca: " + e + " Erro:" + erroRede);
+            //System.out.println("epoca: " + e + " erro:" + erroRede);
             Lerros.add(erroRede);
+            if (erroRede < erro)
+                break;
             e++;
         }
     }
@@ -212,13 +217,13 @@ public class TreinamentoNeural {
                 cmdo.get(i).setNet(soma);
                 switch (funE) {
                     case 3:
-                        cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),5));
+                        cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),5));//hiperbolica
                         break;
                     case 2:
-                        cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),3));
+                        cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),3));//logistica
                         break;
                     default:
-                        cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),1));
+                        cmdo.get(i).setValor(equa(cmdo.get(i).getNet(),1));//linear
                         break;
                 }
             }
@@ -230,18 +235,18 @@ public class TreinamentoNeural {
                 Lsaida.get(i).setNet(soma);
                 switch (funS) {
                     case 3:
-                        Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),5));
+                        Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),5));//hiperbolica
                         break;
                     case 2:
-                        Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),3));
+                        Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),3));//logistica
                         break;
                     default:
-                        Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),1));
+                        Lsaida.get(i).setValor(equa(Lsaida.get(i).getNet(),1));//linear
                         break;
                 }
             }
 
-             index = 0;
+            index = 0;
             double maior = Lsaida.get(0).getValor();
             for (int i = 1; i < Lsaida.size(); i++)                
                 if (Lsaida.get(i).getValor() > maior) {
@@ -249,7 +254,7 @@ public class TreinamentoNeural {
                     index = i;
                 }
             
-             w = 0;
+            w = 0;
             for (; w < saida; w++) {
                 if(classes.get(w).equals(d.getClasse()))
                     break;
@@ -259,26 +264,27 @@ public class TreinamentoNeural {
         return matrizConfusao;
     }
     
-    
+    //escolhe quais funcoes ira usar
     public double equa(Double net,int qual){
         
          switch (qual) {
+                    //linear
                     case 1:
                          return net / 10.0;
-                        
+                    //derivada da linear
                     case 2:
                          return 1.0 / 10.0;
-                        
+                    //logistica    
                     case 3:
                          return 1.0 / (1.0 + Math.pow(Math.E, -net));
-                        
+                    //derivada da logistica    
                     case 4:
                          return net * (1.0 - net);
-
+                    //hiperbolica
                     case 5:
                          double d = Math.pow(Math.E, -2.0 * net);
                          return (1.0 - d) / (1.0 + d);
-                        
+                    //derivada da hiperbolica    
                     case 6:
                          return 1.0 - Math.pow(net, 2);     
                 }

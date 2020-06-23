@@ -108,7 +108,10 @@ public class FXMLDocumentController implements Initializable {
     private void clkAbrirArquivo(ActionEvent event) throws FileNotFoundException, IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Abrir arquivo de Treino");
-        fileTreino = fileChooser.showOpenDialog(btAbrirArquivo.getParent().getScene().getWindow());
+        fileTreino = fileChooser.showOpenDialog(null);
+        fileChooser.setInitialDirectory(new File(fileTreino.getParent()));
+        
+        
         if (fileTreino != null) {
             tfArquivo.setText(fileTreino.getAbsolutePath());
             br = new BufferedReader(new FileReader(fileTreino));
@@ -202,8 +205,10 @@ public class FXMLDocumentController implements Initializable {
             rbSaidaLinear.setSelected(true);
             tfArquivo.setUnFocusColor(Paint.valueOf("#00ff33"));
 
+            
             fileChooser.setTitle("Abrir arquivo de Teste");
-            fileTeste = fileChooser.showOpenDialog(btAbrirArquivo.getParent().getScene().getWindow());
+            fileTeste = fileChooser.showOpenDialog(null);
+            fileChooser.setInitialDirectory(new File(fileTeste.getParent()));
             if (fileTeste != null) {
                 btAbrirArquivo.setStyle("-fx-border-color: #00ff33");
                 tfArquivoTeste.setText(fileTeste.getAbsolutePath());
@@ -266,9 +271,9 @@ public class FXMLDocumentController implements Initializable {
                                             Integer.parseInt(tfCamadaOculta.getText()),
                                             saida);
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLTrain.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("FXMLTelaTreino.fxml"));
             Parent root = (Parent) loader.load();
-            FXMLTrainController t = loader.getController();
+            FXMLTelaTreinoController t = loader.getController();
             t.setNet(rede);
             t.SetTrest(teste);
             Stage stage = new Stage();
